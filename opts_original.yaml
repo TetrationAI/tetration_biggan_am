@@ -1,0 +1,60 @@
+resolution: 128
+
+# 1 - Dandeleion
+# 2 - Rose
+# 3 - ??? 
+# 4 - 
+# 5 
+
+# 2 - something 
+# 4 - Car? 
+# 7 - Interesting
+
+target_class: 2
+
+num_classes: 30
+
+# Different architectures for different embeddings. The "mit_alexnet" is specifically trained on the Places365 dataset (se utils.py)
+model: "30_classes_model" #"extended_flower" #"pul_nod" #"binary_flowerV1" #modelV4 #"AlexNetMOD" #"holger2" #"alexnet_Tetration_1"  # "alexnet", "inception_v3", "mit_alexnet", "mit_resnet18", or "madrylab_resnet50".
+
+
+dloss_function: ""  # "", "softmax", "pixelwise", or "features".
+
+init_method: "mean"  # "mean", "top", "random", or "target".
+
+#Determine number of embeddings
+init_num: 1 # investigate this parameter, if it generates different embeddings. 
+
+use_noise_layer: False
+z_num: 10 # This is batc size 
+
+# Try more steps and and more n_iters 
+#Determine number of steps per epoch (original = 20) 
+steps_per_z: 20
+n_iters: 10 #Determine number of epochs (original = 10)v
+
+# These two are crucial, learning rate and weight decay. Try oncreasing dr. 
+lr: 0.1 # org 0.1 
+dr: 0.9 # org 0.9
+
+# Try reducing the alpha, this changes the power of diversity loss. 
+alpha: 0.1
+
+noise_std: 0.1 # original 0.1. Try increasing this to get more noise into the images. 
+
+seed_z: 0
+intermediate_dir: ""
+
+final_dir: "final"
+
+
+########### For Pipeline purposes
+
+model_path: False
+num_classes: False 
+discriminator_save_dir: False
+
+today_date: False
+today_time: False
+
+########### For Pipeline purposes

@@ -1,29 +1,41 @@
 from biggan_am import main2
 import yaml
 
-def finetune_parameters(settings, yaml_file_path):
+import yaml
+import shutil
 
-    with open(yaml_file_path, 'r') as file:
-            config = yaml.safe_load(file)
-            
+def finetune_parameters(settings, yaml_file_path):
+    # keep the original for reference
+    original_config_path = 'biggan-am/opts_original.yaml'
+
     for setting, parameters in settings.items(): 
+        # copy original, this is so that changes does not "accumulate" 
+        shutil.copyfile(original_config_path, yaml_file_path)
+
+        # open second yaml, which is to be modified
+        with open(yaml_file_path, 'r') as file:
+            config = yaml.safe_load(file)
         
-        # store the setting in the embedding name 
+        # update config with new parameters
         config['today_date'] = setting 
         for param in parameters: 
+            # change the parameter
+            config[setting] = param
+            # set today time to the parameter for naming purposes
             config['today_time'] = param
 
             print("Setting Investigated: ", config["today_date"])
             print("Current Parameter: ", config["today_time"])
 
-            # save yaml with configured parameters 
+            # save yaml with updated parameters
             with open(yaml_file_path, 'w') as file:
                 yaml.safe_dump(config, file)
 
-            # run biggan_am with new settings
+            # run biggan-am with updated parameters
             main2()
 
 def main3(): 
+    # parameters to test 
     settings = {
     "target_class": [i for i in range(1,10)], # target classes
     "n_iters": [10,15,20,25,30,40,50], # epochs

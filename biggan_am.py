@@ -255,6 +255,7 @@ def save_final_samples(
     repeat_original_embedding,
     final_dir,
     init_embedding_idx,
+    opts
 ):
     optim_embedding = optim_comps["optim_embedding"]
     optim_embedding_clamped = torch.clamp(optim_embedding, min_clamp, max_clamp)
@@ -284,9 +285,9 @@ def save_final_samples(
                 original_imgs.append(G(z_hats, repeat_original_embedding))
 
     # get time and date if specified in the opts yaml file, else just get the current.  
-    if optim_comps.get("today_date") and optim_comps.get("today_time"): 
-        today_date = optim_comps["today_date"]
-        today_time = optim_comps["today_time"]
+    if opts.get("today_date") and opts.get("today_time"): 
+        today_date = opts["today_date"]
+        today_time = opts["today_time"]
     
     else: 
         today_date = datetime.now().strftime("%Y-%m-%d")
@@ -313,6 +314,7 @@ def save_final_samples(
 
 
 def main2():
+    
     opts = yaml.safe_load(open("biggan-am/opts.yaml"))
 
     # Set random seed.
@@ -394,6 +396,8 @@ def main2():
     min_clamp = min_clamp_dict[resolution]
 
     target_class = opts["target_class"]
+    print("TARGET CLASS IN BIGGAN: ", target_class)
+
     num_classes = opts["num_classes"]
     
     init_embeddings = get_initial_embeddings(
@@ -486,6 +490,7 @@ def main2():
                 repeat_original_embedding,
                 final_dir,
                 init_embedding_idx,
+                opts
             )
 
 
