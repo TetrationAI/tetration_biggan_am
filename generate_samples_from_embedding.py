@@ -5,6 +5,11 @@ import sys
 from torchvision.utils import save_image
 from utils import *
 
+os.chdir("/mnt/c/Users/Gästkonto/Documents/Programmering/projekt/TetrationAI")
+
+# Check if it worked
+print("Current Working Directory:", os.getcwd())
+# Import other necessary li
 
 def main():
     # Set up cudnn.benchmark for free speed.
@@ -41,11 +46,11 @@ def main():
     #data_source = sys.argv[1]  # "imagenet" or "places".
     #target = sys.argv[2]  # Filename found in "imagenet" or "places" directory.
     #class_embedding = np.load(f"{data_source}/{target}.npy")
-    class_embedding = np.load("biggan-am/places/02_rose.npy") # check if this is true after directory reorganization 
+    class_embedding = np.load("final/target_classes/finetuned_params.npy") # check if this is true after directory reorganization 
     class_embedding = torch.tensor(class_embedding)
 
     # Number of preference. Determines number of images generated
-    z_num = 1
+    z_num = 16
     repeat_class_embedding = class_embedding.repeat(z_num, 1).to(device)
 
     # Generate random noize 
@@ -58,7 +63,7 @@ def main():
     save_dir = "samples"
     print(f"Saving class embedding samples in {save_dir}.", flush=True)
     os.makedirs(save_dir, exist_ok=True)
-    final_image_path = f"{save_dir}/places_02_rose3.jpg"
+    final_image_path = f"{save_dir}.jpg"
     save_image(gan_images_tensor, final_image_path, normalize=True, nrow=4)
 
 

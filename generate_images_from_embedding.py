@@ -70,5 +70,5 @@ def sample_images_save(z_num, embedding_path, save_dir, resolution=128, batch_si
     print(f"Saved {z_num} class embedding samples in {save_dir}.")
 
 # Example usage
-sample_images_save(10, embedding_path="final/_2024-10-26_21-22-27.npy", save_dir="samples", batch_size=5)
+sample_images_save(10, embedding_path="final/optimal_params.npy", save_dir="samples", batch_size=5)
 #"C:\Users\Johan\Documents\Tetration\final\00_2024-04-14_17-58-20.npy"

@@ -4,8 +4,8 @@ import time
 
 # Results for comparison 
 """
-Using device: cuda (NVIDIA RTX 3080)
-Average time per multiplication: 0.000011 seconds.
+Using device: cuda (NVIDIA RTX 4090)
+Average time per multiplication: 0.000005 seconds.
 
 Using device: cpu
 Average time per multiplication: Many seconds... more than 10
